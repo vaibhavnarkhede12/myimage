@@ -1,0 +1,4 @@
+[submodule "ansible/roles/myimage"]
+	path = ansible/roles/myimage
+	url = https://github.com/vaibhavnarkhede12/ansible_role_myimage.git
+	branch = master
