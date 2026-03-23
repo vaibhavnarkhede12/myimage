@@ -1,16 +1,14 @@
-    # 1. Create an empty dictionary to hold the counts
-    event_counts = {}
+SELECT TEAM, SHIRT_OR_HAT, FIRST_NAME, LAST_NAME
+FROM participants
+WHERE STATE = 'CO'
+ORDER BY TEAM ASC, SHIRT_OR_HAT ASC, LAST_NAME DESC;
 
-    # 2. Iterate through the features in the JSON data
-    for feature in data["features"]:
-        # Get the event type (e.g., 'earthquake', 'quarry blast')
-        event_type = feature["properties"]["type"]
-        
-        # 3. Update the count in the dictionary
-        if event_type in event_counts:
-            event_counts[event_type] += 1
-        else:
-            event_counts[event_type] = 1
 
-    # 4. Return the resulting dictionary
-    return event_counts
+SELECT 
+    states.state_name AS STATE_NAME, 
+    MAX(people.quiz_points) AS MAXPOINTS, 
+    AVG(people.quiz_points) AS AVGPOINTS
+FROM states
+JOIN people ON states.state_abbrev = people.state_code
+GROUP BY states.state_name
+ORDER BY AVGPOINTS DESC;
