@@ -1,19 +1,16 @@
+    # 1. Create an empty dictionary to hold the counts
+    event_counts = {}
 
-    # Access the list of earthquakes
-    events = data["features"]
+    # 2. Iterate through the features in the JSON data
+    for feature in data["features"]:
+        # Get the event type (e.g., 'earthquake', 'quarry blast')
+        event_type = feature["properties"]["type"]
+        
+        # 3. Update the count in the dictionary
+        if event_type in event_counts:
+            event_counts[event_type] += 1
+        else:
+            event_counts[event_type] = 1
 
-    # 1. TotalEvents: How many quakes are there in total?
-    TotalEvents = len(events)
-
-    # 2. TotalFelt: How many quakes were felt by at least 100 people?
-    # We use filter() to find events where 'felt' is not None and >= 100
-    felt_100_plus = list(filter(lambda x: x["properties"]["felt"] is not None and x["properties"]["felt"] >= 100, events))
-    TotalFelt = len(felt_100_plus)
-
-    # 3. MostFeltEvent & MostFeltCount
-    # Use max() with a key to find the event with the highest 'felt' value
-    # We use .get("felt") or 0 to handle cases where 'felt' might be null/None
-    most_felt_obj = max(events, key=lambda x: x["properties"]["felt"] if x["properties"]["felt"] is not None else 0)
-    
-    MostFeltEvent = most_felt_obj["properties"]["title"]
-    MostFeltCount = most_felt_obj["properties"]["felt"]
+    # 4. Return the resulting dictionary
+    return event_counts
